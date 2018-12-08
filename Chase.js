@@ -97,25 +97,33 @@ function pushOff(c1, c2) {
   if (c1.x <= 0) {
     c1.x = 1;
     if (c1 === player) {
-      hp.value -= 1;
+      if (hp.value > 1){
+        hp.value -= 1;
+      }
     }
   }
   if (c1.y <= 0) {
     c1.y = 1;
     if (c1 === player) {
-      hp.value -= 1;
+      if (hp.value > 1){
+        hp.value -= 1;
+      }
     }
   }
   if (c1.x >= 800) {
     c1.x = 799;
     if (c1 === player) {
-      hp.value -= 1;
+      if (hp.value > 1){
+        hp.value -= 1;
+      }
     }
   }
   if (c1.y >= 800) {
     c1.y = 799;
     if (c1 === player) {
-      hp.value -= 1;
+      if (hp.value > 1){
+        hp.value -= 1;
+      }
     }
   }
   if (overlap > 0) {
