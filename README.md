@@ -5,3 +5,5 @@
 <p>-You may left-click on your mouse to briefly distract nearby enemies with a scarecrow. Using the scarecrow will place it on a cooldown</p>
 <p>-The game tracks how long you survived and how many times you touched a teleporter. Go for high scores.</p>
 <p>-Good Luck!!!</p>
+<p> Game Link: https://super40111.github.io/Chase </p>
+<p> Codepen: https://codepen.io/MasonH/pen/NEXwYz </p>
