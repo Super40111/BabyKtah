@@ -28,8 +28,8 @@ const teleporter = new Character(400, 400, "black", 100, 0);
 const enemies = [
   new Character(600, 40, "red", 30, 0.05),
   new Character(600, 600, "green", 34, 0.03),
-  new Character(400, 400, "blue", 40, 0.01),
-  new Character(40, 600, "purple", 24, 0.1),
+  new Character(400, 400, "purple", 40, 0.01),
+  new Character(40, 600, "lightblue", 24, 0.1),
 ];
 let scarecrow;
 
@@ -46,7 +46,12 @@ function draw() {
   player.move({x: mouseX, y: mouseY});
   enemies.forEach(enemy => enemy.move(scarecrow || player));
   adjust();
-  cdSpan.textContent = Math.floor(scarecrowCD / 30);
+  if (!pause) {
+    cdSpan.textContent = Math.floor(scarecrowCD / 30);
+  }
+  else {
+    cdSpan.textContent = siSpan.textContent
+  }
   time += 1;
   timeSpan.textContent = Math.floor(time / 30);
   if (startDelay < 90) {
@@ -63,7 +68,7 @@ function draw() {
   }
   if (scarecrow) {
     scarecrow.draw();
-    scarecrow.ttl--;
+    scarecrow.ttl--; 
     if (scarecrow.ttl < 0) {
       scarecrow = undefined;
     }
@@ -134,7 +139,7 @@ function pushOff(c1, c2) {
         score += 1;
       }
     }
-    else {
+    else { 
       c1.x -= adjustX;
       c1.y -= adjustY;
       c2.x += adjustX;
@@ -160,7 +165,7 @@ function pushOff(c1, c2) {
   }
 }
 function mouseClicked() {
-  if (!scarecrow && scarecrowCD === 0) {
+  if (!scarecrow && scarecrowCD === 0 && !pause) {
     scarecrow = new Character(player.x, player.y, "white", 10, 0);
     scarecrow.ttl = frameRate();
     scarecrowCD = 180;
