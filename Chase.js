@@ -29,11 +29,11 @@ const enemies = [
   new Character(600, 40, "red", 30, 0.05),
   new Character(600, 600, "green", 34, 0.03),
   new Character(400, 400, "purple", 40, 0.01),
-  new Character(40, 600, "lightblue", 24, 0.1),
+  new Character(40, 600, "lightblue", 24, 0.1)
 ];
 let scarecrow;
 
-function setup()  {
+function setup() {
   createCanvas(800, 800);
   noStroke();
 }
@@ -43,21 +43,20 @@ function draw() {
   player.draw();
   teleporter.draw();
   enemies.forEach(enemy => enemy.draw());
-  player.move({x: mouseX, y: mouseY});
+  player.move({ x: mouseX, y: mouseY });
   enemies.forEach(enemy => enemy.move(scarecrow || player));
   adjust();
   if (!pause) {
     cdSpan.textContent = Math.floor(scarecrowCD / 30);
-  }
-  else {
-    cdSpan.textContent = siSpan.textContent
+  } else {
+    cdSpan.textContent = siSpan.textContent;
   }
   time += 1;
   timeSpan.textContent = Math.floor(time / 30);
   if (startDelay < 90) {
     startDelay += 1;
     hp.value = 100;
-    siSpan.textContent = Math.floor(3 - (time/30))
+    siSpan.textContent = Math.floor(3 - time / 30);
     if (startDelay === 90) {
       siSpan.textContent = 0;
       pause = false;
@@ -68,25 +67,24 @@ function draw() {
   }
   if (scarecrow) {
     scarecrow.draw();
-    scarecrow.ttl--; 
+    scarecrow.ttl--;
     if (scarecrow.ttl < 0) {
       scarecrow = undefined;
     }
   }
   scoreSpan.textContent = score;
   if (gameOver) {
-    text("Game Over", 370,405);
+    text("Game Over", 370, 405);
     noLoop();
-  }
-  else {
-    text("Teleporter", 370, 405)
+  } else {
+    text("Teleporter", 370, 405);
   }
 }
 
 function adjust() {
   const characters = [player, teleporter, ...enemies];
   for (let i = 0; i < characters.length; i++) {
-    for (let j = i+1; j < characters.length; j++) {
+    for (let j = i + 1; j < characters.length; j++) {
       pushOff(characters[i], characters[j]);
     }
   }
@@ -121,25 +119,23 @@ function pushOff(c1, c2) {
     }
   }
   if (overlap > 0) {
-    const adjustX = (overlap / 2) * (dx / distance);
-    const adjustY = (overlap / 2) * (dy / distance);
+    const adjustX = overlap / 2 * (dx / distance);
+    const adjustY = overlap / 2 * (dy / distance);
     if (c1 === teleporter) {
-      c2.x += (Math.floor(Math.random() * 400) - 200);
-      c2.y += (Math.floor(Math.random() * 400) - 200);
+      c2.x += Math.floor(Math.random() * 400) - 200;
+      c2.y += Math.floor(Math.random() * 400) - 200;
       if (c2 === player) {
         hp.value += 3;
         score += 1;
       }
-    }
-    else if (c2 === teleporter) {
-      c1.x += (Math.floor(Math.random() * 400) - 200);
-      c1.y += (Math.floor(Math.random() * 400) - 200);
+    } else if (c2 === teleporter) {
+      c1.x += Math.floor(Math.random() * 400) - 200;
+      c1.y += Math.floor(Math.random() * 400) - 200;
       if (c1 === player) {
         hp.value += 3;
         score += 1;
       }
-    }
-    else { 
+    } else {
       c1.x -= adjustX;
       c1.y -= adjustY;
       c2.x += adjustX;
@@ -147,14 +143,11 @@ function pushOff(c1, c2) {
       if (c1 === player) {
         if (c2.color === "blue") {
           hp.value -= 5;
-        }
-        else if (c2.color === "green") {
+        } else if (c2.color === "green") {
           hp.value -= 3;
-        }
-        else if (c2.color === "purple") {
+        } else if (c2.color === "purple") {
           hp.value -= 2;
-        }
-        else {
+        } else {
           hp.value -= 1;
         }
         if (hp.value <= 0) {
